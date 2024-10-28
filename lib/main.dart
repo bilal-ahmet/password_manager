@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/bloc/theme_bloc.dart';
 import 'package:password_manager/router/page_router.dart';
+import 'package:password_manager/theme/dark_theme.dart';
+import 'package:password_manager/theme/light_theme.dart';
 
 void main() {
   runApp(
@@ -20,7 +22,7 @@ class MainApp extends StatelessWidget {
     final themeState = context.watch<ThemeBloc>().state;
     return MaterialApp.router(
       routerConfig: router,
-      theme: themeState.isDarkTheme ? ThemeData.dark() : ThemeData.light()
+      theme: themeState.isDarkTheme ? darkTheme : lightTheme
     );
   }
 }
