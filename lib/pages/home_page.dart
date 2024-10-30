@@ -9,8 +9,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> appList = [];
+  List<String> passwordList = [];
 
-  TextEditingController controller = TextEditingController();
+  TextEditingController appController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,27 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(8),
         itemCount: appList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(appList[index]),
-            leading: CircleAvatar(
-              child: Text((index + 1).toString()),
+          return Card(
+            color: Theme.of(context).colorScheme.primary,
+            child: ListTile(
+              title: Text(
+                appList[index],
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              ),
+              subtitle: Text(
+                passwordList[index],
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              ),
+              leading: CircleAvatar(
+                child: Text(
+                  (index + 1).toString(),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.tertiary),
+                ),
+              ),
             ),
           );
         },
@@ -41,8 +58,18 @@ class _HomePageState extends State<HomePage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: TextField(
-                  controller: controller,
+                title: Column(
+                  children: [
+                    TextField(
+                      controller: appController,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width / 9,
+                    ),
+                    TextField(
+                      controller: passwordController,
+                    ),
+                  ],
                 ),
                 actions: [
                   IconButton(
@@ -53,8 +80,10 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          appAddMethode(controller.text);
-                          controller.clear();
+                          appAddMethode(appController.text);
+                          passwordAddMethode(passwordController.text);
+                          appController.clear();
+                          passwordController.clear();
                           Navigator.pop(context);
                         });
                       },
@@ -70,5 +99,9 @@ class _HomePageState extends State<HomePage> {
 
   void appAddMethode(String name) {
     appList.add(name);
+  }
+
+  void passwordAddMethode(String name) {
+    passwordList.add(name);
   }
 }
