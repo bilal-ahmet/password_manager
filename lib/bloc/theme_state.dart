@@ -4,7 +4,7 @@ part of 'theme_bloc.dart';
 class ThemeState {
   final bool isDarkTheme;
 
-  ThemeState({required this.isDarkTheme});
+  const ThemeState({required this.isDarkTheme});
 }
 
 
