@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/bloc/theme_bloc.dart';
@@ -5,7 +6,11 @@ import 'package:password_manager/router/page_router.dart';
 import 'package:password_manager/theme/dark_theme.dart';
 import 'package:password_manager/theme/light_theme.dart';
 
-void main() {
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     BlocProvider<ThemeBloc>(
       create: (context) => ThemeBloc(),
