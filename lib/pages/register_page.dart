@@ -7,14 +7,6 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
-        title: const Text("LockWord"),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
-        ],
-      ),
       body: SingleChildScrollView(
         child: Container(
           decoration:
@@ -23,14 +15,10 @@ class RegisterPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.width / 7,
-                ),
-                const Center(child: Text("LOCKWORD", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 11,
+                  height: MediaQuery.of(context).size.width / 3,
                 ),
                 Image.asset(
-                  "assets/3d-unlocked.png",
+                  "assets/logo.png",
                   height: MediaQuery.of(context).size.width / 3,
                 ),
                 SizedBox(

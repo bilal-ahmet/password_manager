@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/router/page_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +28,56 @@ class _HomePageState extends State<HomePage> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
         ],
       ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 5,
+            ),
+            Image.asset("assets/logo.png"),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 10,
+            ),
+            const Divider(
+              indent: 25,
+              endIndent: 25,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 8,
+            ),
+            TextButton(
+                onPressed: () {
+                  router.push("/profilPage");
+                },
+                child: Text(
+                  "- PROFIL",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.tertiary),
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 10,
+            ),
+            TextButton(
+                onPressed: () {
+                  router.push("/themePage");
+                },
+                child: Text(
+                  "THEME -",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.tertiary),
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 2,
+            ),
+            ElevatedButton(onPressed: () {}, child: Text("S I G N  O U T"))
+          ],
+        ),
+      ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
         itemCount: mailList.length,
@@ -45,7 +96,10 @@ class _HomePageState extends State<HomePage> {
               leading: CircleAvatar(
                 child: Image.asset("assets/logo.png"),
               ),
-              trailing: Text(appList[index], style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
+              trailing: Text(
+                appList[index],
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              ),
             ),
           );
         },

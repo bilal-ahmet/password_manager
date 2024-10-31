@@ -7,14 +7,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
-        title: const Text("LockWord"),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
-        ],
-      ),
       body: SingleChildScrollView(
         child: Container(
           decoration:
@@ -23,10 +15,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.width / 7,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 11,
+                  height: MediaQuery.of(context).size.width / 3,
                 ),
                 Image.asset(
                   "assets/logo.png",
