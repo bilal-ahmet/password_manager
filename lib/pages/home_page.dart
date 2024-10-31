@@ -8,11 +8,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> appList = [];
+  List<String> mailList = [];
   List<String> passwordList = [];
+  List<String> appList = [];
 
-  TextEditingController appController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController appController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: appList.length,
+        itemCount: mailList.length,
         itemBuilder: (context, index) {
           return Card(
             color: Theme.of(context).colorScheme.primary,
             child: ListTile(
               title: Text(
-                appList[index],
+                mailList[index],
                 style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
               subtitle: Text(
@@ -41,12 +43,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
               leading: CircleAvatar(
-                child: Text(
-                  (index + 1).toString(),
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.tertiary),
-                ),
+                child: Image.asset("assets/logo.png"),
               ),
+              trailing: Text(appList[index], style: TextStyle(color: Theme.of(context).colorScheme.tertiary),),
             ),
           );
         },
@@ -61,14 +60,23 @@ class _HomePageState extends State<HomePage> {
                 title: Column(
                   children: [
                     TextField(
-                      controller: appController,
+                      decoration: const InputDecoration(hintText: "E-mail"),
+                      controller: mailController,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.width / 9,
+                      height: MediaQuery.of(context).size.width / 12,
                     ),
                     TextField(
+                      decoration: const InputDecoration(hintText: "Password"),
                       controller: passwordController,
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width / 12,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(hintText: "App Name"),
+                      controller: appController,
+                    )
                   ],
                 ),
                 actions: [
@@ -76,14 +84,16 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.delete)),
+                      icon: const Icon(Icons.cancel)),
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          appAddMethode(appController.text);
+                          mailAddMethode(mailController.text);
                           passwordAddMethode(passwordController.text);
-                          appController.clear();
+                          appAddMethode(appController.text);
+                          mailController.clear();
                           passwordController.clear();
+                          appController.clear();
                           Navigator.pop(context);
                         });
                       },
@@ -97,11 +107,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void appAddMethode(String name) {
-    appList.add(name);
+  void mailAddMethode(String name) {
+    mailList.add(name);
   }
 
   void passwordAddMethode(String name) {
     passwordList.add(name);
+  }
+
+  void appAddMethode(String name) {
+    appList.add(name);
   }
 }

@@ -25,12 +25,11 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 7,
                 ),
-                const Center(child: Text("LOCKWORD", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 11,
                 ),
                 Image.asset(
-                  "assets/3d-unlocked.png",
+                  "assets/logo.png",
                   height: MediaQuery.of(context).size.width / 3,
                 ),
                 SizedBox(
@@ -40,8 +39,9 @@ class LoginPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.3,
                   decoration: BoxDecoration(
                     border: Border.all(
-                        width: 3, color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(12),
+                        width: 2.5,
+                        color: Theme.of(context).colorScheme.primary),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
@@ -58,8 +58,9 @@ class LoginPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.3,
                   decoration: BoxDecoration(
                     border: Border.all(
-                        width: 3, color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(12),
+                        width: 2.5,
+                        color: Theme.of(context).colorScheme.primary),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
@@ -70,27 +71,32 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.width / 7,
+                  height: MediaQuery.of(context).size.width / 6,
                 ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary),
-                    onPressed: () {
-                      router.push("/homePage");
-                    },
-                    child: const Text("Sign in")),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 15,
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary),
-                    onPressed: () {
-                      router.push("/registerPage");
-                    },
-                    child: const Text("Sign up")),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary),
+                        onPressed: () {
+                          router.push("/homePage");
+                        },
+                        child: const Text("Sign in")),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 15,
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary),
+                        onPressed: () {
+                          router.push("/registerPage");
+                        },
+                        child: const Text("Sign up")),
+                  ],
+                )
               ],
             ),
           ),
