@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   router.push("/profilPage");
                 },
                 child: Text(
-                  "- PROFIL",
+                  "- PROFILE",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
