@@ -8,7 +8,7 @@ import 'package:password_manager/pages/theme_page.dart';
 final GoRouter router = GoRouter(initialLocation: "/loginPage", routes: [
   GoRoute(
     path: "/homePage",
-    builder: (context, state) => HomePage(),
+    builder: (context, state) => const HomePage(),
   ),
   GoRoute(
     path: "/loginPage",

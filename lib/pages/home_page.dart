@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.tertiary),
+                      color: Theme.of(context).colorScheme.primary),
                 )),
             SizedBox(
               height: MediaQuery.of(context).size.width / 10,
@@ -69,12 +69,12 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.tertiary),
+                      color: Theme.of(context).colorScheme.primary),
                 )),
             SizedBox(
               height: MediaQuery.of(context).size.width / 2,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("S I G N  O U T"))
+            ElevatedButton(onPressed: () {}, child: const Text("S I G N  O U T"))
           ],
         ),
       ),

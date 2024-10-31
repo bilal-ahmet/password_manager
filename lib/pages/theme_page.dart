@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/bloc/theme_bloc.dart';
-import 'package:password_manager/main.dart';
 
 class ThemePage extends StatelessWidget {
   const ThemePage({super.key});

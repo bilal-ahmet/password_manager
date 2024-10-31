@@ -35,8 +35,8 @@ class LoginPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
-                      decoration: const InputDecoration(
-                          border: InputBorder.none, hintText: "E-mail"),
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "E-mail", hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),),
                     ),
                   ),
                 ),
@@ -54,8 +54,8 @@ class LoginPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
-                      decoration: const InputDecoration(
-                          border: InputBorder.none, hintText: "Password"),
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: "Password", hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),),
                     ),
                   ),
                 ),
