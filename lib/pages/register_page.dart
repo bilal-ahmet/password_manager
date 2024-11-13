@@ -3,12 +3,11 @@ import 'package:password_manager/database/auth.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class RegisterPage extends StatelessWidget {
- RegisterPage({super.key});
+  RegisterPage({super.key});
 
- TextEditingController mailController = TextEditingController();
- TextEditingController passwordController = TextEditingController();
- TextEditingController nameController = TextEditingController();
-
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,8 +89,9 @@ class RegisterPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary),
-                    onPressed: () async{
-                      await signUpUser(mailController.text, passwordController.text);
+                    onPressed: () async {
+                      await signUpUser(
+                          mailController.text, passwordController.text);
                       router.push("/loginPage");
                     },
                     child: const Text("Sign up")),
