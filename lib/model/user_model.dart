@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 1)
-class User {
+class UserModel {
   @HiveField(0)
   final String name;
 
@@ -22,7 +22,7 @@ class User {
   @HiveField(5)
   final bool isSignIn;
 
-  User(
+  UserModel(
       {required this.name,
       required this.email,
       required this.password,
