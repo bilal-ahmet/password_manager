@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/database/auth.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text("LockWord"),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.logout))
+          IconButton(onPressed: () async{await signOutUser(); router.push("/loginPage");}, icon: const Icon(Icons.logout))
         ],
       ),
       drawer: Drawer(
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   router.push("/profilPage");
                 },
                 child: Text(
-                  "- PROFILE",
+                  "PROFILE",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -65,14 +66,28 @@ class _HomePageState extends State<HomePage> {
                   router.push("/themePage");
                 },
                 child: Text(
-                  "THEME -",
+                  "THEME",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                )),
+                SizedBox(
+              height: MediaQuery.of(context).size.width / 10,
+            ),
+            TextButton(
+                onPressed: () {
+                  router.push("/databaseTransfer");
+                },
+                child: Text(
+                  "SAVE PASSWORD",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary),
                 )),
             SizedBox(
-              height: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.width / 4,
             ),
             ElevatedButton(onPressed: () {}, child: const Text("S I G N  O U T"))
           ],

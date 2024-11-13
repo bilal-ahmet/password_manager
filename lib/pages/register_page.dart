@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/database/auth.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+ RegisterPage({super.key});
+
+ TextEditingController mailController = TextEditingController();
+ TextEditingController passwordController = TextEditingController();
+ TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,7 @@ class RegisterPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
+                      controller: nameController,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: "Name"),
                     ),
@@ -52,6 +58,7 @@ class RegisterPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
+                      controller: mailController,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: "E-mail"),
                     ),
@@ -70,6 +77,7 @@ class RegisterPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
+                      controller: passwordController,
                       decoration: const InputDecoration(
                           border: InputBorder.none, hintText: "Password"),
                     ),
@@ -82,7 +90,8 @@ class RegisterPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary),
-                    onPressed: () {
+                    onPressed: () async{
+                      await signUpUser(mailController.text, passwordController.text);
                       router.push("/loginPage");
                     },
                     child: const Text("Sign up")),

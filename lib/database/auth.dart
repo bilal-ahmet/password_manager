@@ -23,3 +23,7 @@ Future<void> signUpUser(String email, String password) async {
     print(e);
   }
 }
+
+Future<void> signOutUser() async{
+  FirebaseAuth.instance.signOut();
+}

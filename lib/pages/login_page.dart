@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/database/auth.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+ LoginPage({super.key});
+
+ TextEditingController mailController = TextEditingController();
+ TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class LoginPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
+                      controller: mailController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "E-mail", hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),),
                     ),
@@ -54,6 +60,7 @@ class LoginPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: "Password", hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),),
                     ),
@@ -69,8 +76,14 @@ class LoginPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.secondary),
-                        onPressed: () {
-                          router.push("/homePage");
+                        onPressed: () async{
+                          await signInUser(mailController.text, passwordController.text);
+                          if(FirebaseAuth.instance.currentUser == null){
+                            router.push("/registerPage");
+                          }
+                          else{
+                            router.push("/homePage");
+                          }
                         },
                         child: const Text("Sign in")),
                     SizedBox(

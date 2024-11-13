@@ -6,7 +6,7 @@ import 'package:password_manager/router/page_router.dart';
 import 'package:password_manager/theme/dark_theme.dart';
 import 'package:password_manager/theme/light_theme.dart';
 
-void main() async{
+Future<void> main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
