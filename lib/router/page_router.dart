@@ -31,8 +31,8 @@ final GoRouter router = GoRouter(
         path: "/themePage",
         builder: (context, state) => const ThemePage(),
       ),
-      GoRoute(
+      /* GoRoute(
         path: "/databaseTransfer",
         builder: (context, state) => const DatabaseTransfer(),
-      ),
+      ), */
     ]);

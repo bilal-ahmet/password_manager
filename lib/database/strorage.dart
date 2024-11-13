@@ -14,11 +14,11 @@ Future<void> saveInformation(String mail, String password, String appName) async
   }
 }
 
-Future<List<Map<String, dynamic>>> getInfotmation() async {
+/* Future<List<Map<String, dynamic>>> getInfotmation() async {
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('appInformation').get();
       return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
     } catch (e) {
       print(e);
       return [];
-    }}
+    }} */
