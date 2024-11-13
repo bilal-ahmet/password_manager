@@ -5,28 +5,40 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel {
   @HiveField(0)
-  final String name;
+  final String? name;
 
   @HiveField(1)
-  final String email;
+  final String? email;
 
   @HiveField(2)
-  final String password;
+  final String? password;
 
   @HiveField(3)
-  final String appName;
+  final String? appName;
 
   @HiveField(4)
-  final bool isDarkTheme;
+  final bool? isDarkTheme;
 
   @HiveField(5)
-  final bool isSignIn;
+  final bool? isSignIn;
 
-  UserModel(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.appName,
-      required this.isDarkTheme,
-      required this.isSignIn});
+  UserModel(this.name, this.email, this.password, this.appName, this.isDarkTheme, this.isSignIn);
+
+  UserModel copyWith({
+    String? name,
+    String? email,
+    String? password,
+    String? appName,
+    bool? isDarkTheme,
+    bool? isSignIn,
+  }) {
+    return UserModel(
+      name ?? this.name,
+      email ?? this.email,
+      password ?? this.password,
+      appName ?? this.appName,
+      isDarkTheme ?? this.isDarkTheme,
+      isSignIn ?? this.isSignIn,
+    );
+  }
 }

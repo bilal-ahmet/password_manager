@@ -17,12 +17,12 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserModel(
-      name: fields[0] as String,
-      email: fields[1] as String,
-      password: fields[2] as String,
-      appName: fields[3] as String,
-      isDarkTheme: fields[4] as bool,
-      isSignIn: fields[5] as bool,
+      fields[0] as String?,
+      fields[1] as String?,
+      fields[2] as String?,
+      fields[3] as String?,
+      fields[4] as bool?,
+      fields[5] as bool?,
     );
   }
 
