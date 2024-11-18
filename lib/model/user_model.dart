@@ -5,22 +5,22 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel {
   @HiveField(0)
-  final String? name;
+  String? name;
 
   @HiveField(1)
-  final String? email;
+  String? email;
 
   @HiveField(2)
-  final String? password;
+  String? password;
 
   @HiveField(3)
-  final String? appName;
+  String? appName;
 
   @HiveField(4)
-  final bool? isDarkTheme;
+  bool? isDarkTheme;
 
   @HiveField(5)
-  final bool? isSignIn;
+  bool? isSignIn;
 
   UserModel(this.name, this.email, this.password, this.appName, this.isDarkTheme, this.isSignIn);
 

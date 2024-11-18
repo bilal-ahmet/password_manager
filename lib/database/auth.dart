@@ -5,12 +5,6 @@ Future<void> signInUser(String email, String password) async {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
   } on FirebaseAuthException catch (e) {
-    /* if (e.code == "user-not-found") {
-      print("Kullanıcı Bulunamadı");
-    } else if (e.code == "wrong-password") {
-      print("Hatalı Şifre");
-    } */
-
    print(e);
   }
 }

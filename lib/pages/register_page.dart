@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/database/auth.dart';
+import 'package:password_manager/model/user_model.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class RegisterPage extends StatelessWidget {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

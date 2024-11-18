@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/database/auth.dart';
+import 'package:password_manager/lokal_storage/service.dart';
+import 'package:password_manager/model/user_model.dart';
 import 'package:password_manager/router/page_router.dart';
 
 class HomePage extends StatefulWidget {
@@ -157,9 +159,10 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          mailAddMethode(mailController.text);
-                          passwordAddMethode(passwordController.text);
-                          appAddMethode(appController.text);
+                          mailList.add(mailController.text);
+                          passwordList.add(passwordController.text);
+                          appList.add(appController.text);
+
                           mailController.clear();
                           passwordController.clear();
                           appController.clear();
@@ -174,17 +177,5 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
-  }
-
-  void mailAddMethode(String name) {
-    mailList.add(name);
-  }
-
-  void passwordAddMethode(String name) {
-    passwordList.add(name);
-  }
-
-  void appAddMethode(String name) {
-    appList.add(name);
   }
 }
