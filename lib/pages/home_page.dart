@@ -20,6 +20,10 @@ class _HomePageState extends State<HomePage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController appController = TextEditingController();
 
+  UserModel user = UserModel(null, null, null, null, null, null);
+
+  Service service = Service();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,12 @@ class _HomePageState extends State<HomePage> {
         title: const Text("LockWord"),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
-          IconButton(onPressed: () async{await signOutUser(); router.push("/loginPage");}, icon: const Icon(Icons.logout))
+          IconButton(
+              onPressed: () async {
+                await signOutUser();
+                router.push("/loginPage");
+              },
+              icon: const Icon(Icons.logout))
         ],
       ),
       drawer: Drawer(
@@ -74,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary),
                 )),
-                SizedBox(
+            SizedBox(
               height: MediaQuery.of(context).size.width / 10,
             ),
             TextButton(
@@ -91,34 +100,62 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: MediaQuery.of(context).size.width / 4,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text("S I G N  O U T"))
+            ElevatedButton(
+                onPressed: () {}, child: const Text("S I G N  O U T"))
           ],
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: mailList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            color: Theme.of(context).colorScheme.primary,
-            child: ListTile(
-              title: Text(
-                mailList[index],
-                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-              ),
-              subtitle: Text(
-                passwordList[index],
-                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-              ),
-              leading: CircleAvatar(
-                child: Image.asset("assets/logo.png"),
-              ),
-              trailing: Text(
-                appList[index],
-                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-              ),
-            ),
-          );
+      body: FutureBuilder<List<UserModel>>(
+        future: service.getAllUser(), // Hive'dan kullanıcıları al
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text("No users found."));
+          } else {
+            var users = snapshot.data!;
+            return ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                    key: Key(users[index].email ?? index.toString()),
+                    direction: DismissDirection.horizontal,
+                    onDismissed: (direction) async {
+                      await service.deleteUser(index);
+
+                      setState(() {
+                        users.removeAt(index);
+                      });
+                    },
+                    child: Card(
+                      color: Theme.of(context).colorScheme.primary,
+                      child: ListTile(
+                        title: Text(
+                          users[index].email ?? "No Email",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary),
+                        ),
+                        subtitle: Text(
+                          users[index].password ?? "No Password",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary),
+                        ),
+                        leading: CircleAvatar(
+                          child: Image.asset("assets/logo.png"),
+                        ),
+                        trailing: Text(
+                          users[index].appName ?? "No App Name",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary),
+                        ),
+                      ),
+                    ));
+              },
+            );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -157,15 +194,23 @@ class _HomePageState extends State<HomePage> {
                       },
                       icon: const Icon(Icons.cancel)),
                   IconButton(
-                      onPressed: () {
-                        setState(() {
-                          mailList.add(mailController.text);
-                          passwordList.add(passwordController.text);
-                          appList.add(appController.text);
+                      onPressed: () async {
+                        mailList.add(mailController.text);
+                        passwordList.add(passwordController.text);
+                        appList.add(appController.text);
 
-                          mailController.clear();
-                          passwordController.clear();
-                          appController.clear();
+                        user = user.copyWith(
+                            email: mailController.text,
+                            password: passwordController.text,
+                            appName: appController.text);
+
+                        await service.addUser(user);
+
+                        mailController.clear();
+                        passwordController.clear();
+                        appController.clear();
+
+                        setState(() {
                           Navigator.pop(context);
                         });
                       },
