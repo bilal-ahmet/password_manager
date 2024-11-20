@@ -94,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                     onPressed: () async {
                       await signUpUser(
                           mailController.text, passwordController.text);
-                      router.push("/loginPage");
+                      router.pushReplacement("/loginPage");
                     },
                     child: const Text("Sign up")),
               ],

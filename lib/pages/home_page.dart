@@ -12,9 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> mailList = [];
-  List<String> passwordList = [];
-  List<String> appList = [];
 
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -31,11 +28,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         title: const Text("LockWord"),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+          IconButton(onPressed: () {
+            router.push("/profilPage");
+          }, icon: const Icon(Icons.person)),
           IconButton(
               onPressed: () async {
                 await signOutUser();
-                router.push("/loginPage");
+                router.pushReplacement("/loginPage");
               },
               icon: const Icon(Icons.logout))
         ],
@@ -101,19 +100,22 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.width / 4,
             ),
             ElevatedButton(
-                onPressed: () {}, child: const Text("S I G N  O U T"))
+                onPressed: () async{
+                  await signOutUser();
+                  router.pushReplacement("/loginPaged");
+                }, child: const Text("S I G N  O U T"))
           ],
         ),
       ),
       body: FutureBuilder<List<UserModel>>(
-        future: service.getAllUser(), // Hive'dan kullanıcıları al
+        future: service.getAllUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("No users found."));
+            return const Center(child: Text("No application found."));
           } else {
             var users = snapshot.data!;
             return ListView.builder(
@@ -121,7 +123,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: users.length,
               itemBuilder: (context, index) {
                 return Dismissible(
-                    key: Key(users[index].email ?? index.toString()),
+                    key: Key(users[index].appName ?? index.toString()),
                     direction: DismissDirection.horizontal,
                     onDismissed: (direction) async {
                       await service.deleteUser(index);
@@ -195,10 +197,6 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.cancel)),
                   IconButton(
                       onPressed: () async {
-                        mailList.add(mailController.text);
-                        passwordList.add(passwordController.text);
-                        appList.add(appController.text);
-
                         user = user.copyWith(
                             email: mailController.text,
                             password: passwordController.text,
