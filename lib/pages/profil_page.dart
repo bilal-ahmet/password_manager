@@ -29,16 +29,13 @@ class ProfilPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.width / 9,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.width / 3,
-                  width: MediaQuery.of(context).size.width / 3,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      shape: BoxShape.circle),
-                  child: Icon(
-                    Icons.person,
-                    size: MediaQuery.of(context).size.width / 4,
-                  ),
-                ),
+                    height: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width / 3,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle),
+                    child: Image.asset(
+                      "assets/logo.png",
+                    )),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 9,
                 ),
