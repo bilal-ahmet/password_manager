@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/database/auth.dart';
+import 'package:password_manager/lokal_storage/service.dart';
 import 'package:password_manager/model/user_model.dart';
 import 'package:password_manager/router/page_router.dart';
 
@@ -9,6 +10,9 @@ class RegisterPage extends StatelessWidget {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+
+  UserModel? user = UserModel(null, null, null, null, null, null);
+  Service service = Service();
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +98,15 @@ class RegisterPage extends StatelessWidget {
                     onPressed: () async {
                       await signUpUser(
                           mailController.text, passwordController.text);
+
+                      user = user?.copyWith(
+                        name: nameController.text,
+                        email: mailController.text,
+                        password: passwordController.text
+                      );
+
+                      service.addUser(user!);
+
                       router.pushReplacement("/loginPage");
                     },
                     child: const Text("Sign up")),

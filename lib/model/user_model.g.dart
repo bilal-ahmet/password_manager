@@ -21,8 +21,8 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       fields[1] as String?,
       fields[2] as String?,
       fields[3] as String?,
-      fields[4] as bool?,
-      fields[5] as bool?,
+      fields[4] as String?,
+      fields[5] as String?,
     );
   }
 
@@ -39,9 +39,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(3)
       ..write(obj.appName)
       ..writeByte(4)
-      ..write(obj.isDarkTheme)
+      ..write(obj.appMail)
       ..writeByte(5)
-      ..write(obj.isSignIn);
+      ..write(obj.appPassword);
   }
 
   @override

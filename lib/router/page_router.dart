@@ -25,7 +25,7 @@ final GoRouter router = GoRouter(
       ),
       GoRoute(
         path: "/profilPage",
-        builder: (context, state) => const ProfilPage(),
+        builder: (context, state) => ProfilPage(),
       ),
       GoRoute(
         path: "/themePage",

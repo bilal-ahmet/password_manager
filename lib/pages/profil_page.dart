@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/lokal_storage/service.dart';
 
 class ProfilPage extends StatelessWidget {
-  const ProfilPage({super.key});
+  ProfilPage({super.key});
+
+  Service service = Service();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class ProfilPage extends StatelessWidget {
         ),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Center(
             child: Column(
@@ -31,7 +34,10 @@ class ProfilPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle),
-                  child: Icon(Icons.person, size: MediaQuery.of(context).size.width/4,),
+                  child: Icon(
+                    Icons.person,
+                    size: MediaQuery.of(context).size.width / 4,
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 9,
@@ -46,25 +52,101 @@ class ProfilPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width / 9, right: MediaQuery.of(context).size.width / 9),
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width / 9,
+                right: MediaQuery.of(context).size.width / 9),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Row(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Text("Name"),
-                     Text("bilal ahmet"),
+                    const Text("Name"),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    FutureBuilder(
+                      future: service.getAllUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text("${snapshot.error}"),
+                          );
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Center(
+                            child: Text("there is no user"),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.width / 10,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                  snapshot.data![index].name.toString(),
+                                  softWrap: false,
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                    )
                   ],
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.width / 12,
                 ),
-                const Row(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Text("Mail"),
-                    Text("bilal@gmail.com")
+                    const Text("Mail"),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5,
+                    ),
+                    FutureBuilder(
+                      future: service.getAllUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text("error: ${snapshot.error}"),
+                          );
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Center(
+                            child: Text("there is no user"),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.width / 10,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                  snapshot.data![index].email.toString(),
+                                  softWrap: false,
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                    )
                   ],
                 )
               ],

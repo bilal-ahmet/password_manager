@@ -12,12 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController appMailController = TextEditingController();
+  TextEditingController appPasswordController = TextEditingController();
   TextEditingController appController = TextEditingController();
 
-  UserModel user = UserModel(null, null, null, null, null, null);
+  UserModel? user = UserModel(null, null, null, null, null, null);
 
   Service service = Service();
 
@@ -25,12 +24,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         title: const Text("LockWord"),
         actions: [
-          IconButton(onPressed: () {
-            router.push("/profilPage");
-          }, icon: const Icon(Icons.person)),
+          IconButton(
+              onPressed: () {
+                router.push("/profilPage");
+              },
+              icon: const Icon(Icons.person)),
           IconButton(
               onPressed: () async {
                 await signOutUser();
@@ -83,9 +85,9 @@ class _HomePageState extends State<HomePage> {
                       color: Theme.of(context).colorScheme.primary),
                 )),
             SizedBox(
-              height: MediaQuery.of(context).size.width / 10,
+              height: MediaQuery.of(context).size.width / 1.7,
             ),
-            TextButton(
+            /* TextButton(
                 onPressed: () {
                   router.push("/databaseTransfer");
                 },
@@ -95,15 +97,13 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary),
-                )),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 4,
-            ),
+                )),*/
             ElevatedButton(
-                onPressed: () async{
+                onPressed: () async {
                   await signOutUser();
-                  router.pushReplacement("/loginPaged");
-                }, child: const Text("S I G N  O U T"))
+                  router.pushReplacement("/loginPage");
+                },
+                child: const Text("S I G N  O U T"))
           ],
         ),
       ),
@@ -132,16 +132,16 @@ class _HomePageState extends State<HomePage> {
                         users.removeAt(index);
                       });
                     },
-                    child: Card(
+                    child: users[index].appMail == null ? const Center(child: Text("no app found"),) : Card(
                       color: Theme.of(context).colorScheme.primary,
                       child: ListTile(
                         title: Text(
-                          users[index].email ?? "No Email",
+                          users[index].appMail ?? "No Email",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.tertiary),
                         ),
                         subtitle: Text(
-                          users[index].password ?? "No Password",
+                          users[index].appPassword ?? "No Password",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.tertiary),
                         ),
@@ -171,14 +171,14 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     TextField(
                       decoration: const InputDecoration(hintText: "E-mail"),
-                      controller: mailController,
+                      controller: appMailController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.width / 12,
                     ),
                     TextField(
                       decoration: const InputDecoration(hintText: "Password"),
-                      controller: passwordController,
+                      controller: appPasswordController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.width / 12,
@@ -197,15 +197,15 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.cancel)),
                   IconButton(
                       onPressed: () async {
-                        user = user.copyWith(
-                            email: mailController.text,
-                            password: passwordController.text,
+                        user = user?.copyWith(
+                            appMail: appMailController.text,
+                            appPassword: appPasswordController.text,
                             appName: appController.text);
 
-                        await service.addUser(user);
+                        await service.addUser(user!);
 
-                        mailController.clear();
-                        passwordController.clear();
+                        appMailController.clear();
+                        appPasswordController.clear();
                         appController.clear();
 
                         setState(() {

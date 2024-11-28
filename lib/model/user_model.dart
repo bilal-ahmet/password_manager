@@ -17,28 +17,28 @@ class UserModel {
   String? appName;
 
   @HiveField(4)
-  bool? isDarkTheme;
+  String? appMail;
 
   @HiveField(5)
-  bool? isSignIn;
+  String? appPassword;
 
-  UserModel(this.name, this.email, this.password, this.appName, this.isDarkTheme, this.isSignIn);
+  UserModel(this.name, this.email, this.password, this.appName, this.appMail, this.appPassword);
 
   UserModel copyWith({
     String? name,
     String? email,
     String? password,
     String? appName,
-    bool? isDarkTheme,
-    bool? isSignIn,
+    String? appMail,
+    String? appPassword,
   }) {
     return UserModel(
       name ?? this.name,
       email ?? this.email,
       password ?? this.password,
       appName ?? this.appName,
-      isDarkTheme ?? this.isDarkTheme,
-      isSignIn ?? this.isSignIn,
+      appMail ?? this.appMail,
+      appPassword ?? this.appPassword
     );
   }
 }
